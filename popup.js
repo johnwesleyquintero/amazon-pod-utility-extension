@@ -20,37 +20,6 @@ function startMonitoring() {
   document.getElementById("status").textContent = "Monitoring is ON";
   isMonitoring = true;
 }
-document.getElementById('startButton').addEventListener('click', () => {
-  chrome.runtime.sendMessage({ action: "startMonitoring" }, (response) => {
-    if (response.status === "started") {
-      document.getElementById('startButton').disabled = true;
-      document.getElementById('stopButton').disabled = false;
-    }
-  });
-});
-
-document.getElementById('stopButton').addEventListener('click', () => {
-  chrome.runtime.sendMessage({ action: "stopMonitoring" }, (response) => {
-    if (response.status === "stopped") {
-      document.getElementById('startButton').disabled = false;
-      document.getElementById('stopButton').disabled = true;
-    }
-  });
-});
-
-// Initialize button states
-document.getElementById('stopButton').disabled = true;
-  
-  // Disable the monitoring functionality in the background
-  chrome.runtime.sendMessage({ action: "stopMonitoring" });
-  
-  // Update status
-  document.getElementById("status").textContent = "Monitoring is OFF";
-  isMonitoring = false;
-}
-const startButton = document.getElementById('startButton');
-const stopButton = document.getElementById('stopButton');
-const statusDiv = document.getElementById('status');
 
 // Initialize button states
 stopButton.disabled = true;

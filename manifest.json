@@ -18,9 +18,11 @@
     "scripting",
     "storage"
   ],
+ "optional_host_permissions": [
+    "https://sellercentral.amazon.com/*"
+  ],
   "host_permissions": [
-    "https://sellercentral.amazon.com/inventory/*", // More specific example
-    "https://script.google.com/macros/s/AKfycbxeo81Gxh-dhsM1k_dcGQ1wcnJIrMNotRFZwZl4Sm4fp_75HCSxCGrI8k3qNPfEbVC10A/exec" // More specific example
+    "https://script.google.com/macros/s/AKfycbxeo81Gxh-dhsM1k_dcGQ1wcnJIrMNotRFZwZl4Sm4fp_75HCSxCGrI8k3qNPfEbVC10A/exec"
   ],
   "background": {
     "service_worker": "background.js",
@@ -28,6 +30,6 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "assets/icon128.png" // Match one of the defined icon sizes
+    "default_icon": "assets/icon128.png"
   }
 }

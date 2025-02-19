@@ -3,31 +3,34 @@ let monitoringActive = false;
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "startMonitoring" && !monitoringActive) {
     monitoringActive = true;
-    startMonitoring();
+    // Instead of injecting the script, send a message to the existing content script
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      if (tabs[0]) {
+        chrome.tabs.sendMessage(tabs[0].id, { action: "startMonitoring" });
+      }
+    });
     sendResponse({ status: "started" });
   } else if (message.action === "stopMonitoring") {
     monitoringActive = false;
     sendResponse({ status: "stopped" });
   } else if (message.action === "getStatus") {
     sendResponse({ isMonitoring: monitoringActive });
+  } else if (message.action === "monitoringComplete") {
+      // Handle completion (e.g., update UI, show notification)
+      console.log("Monitoring complete!");
+      monitoringActive = false; // Reset monitoringActive
   }
   return true;
 });
 
-function startMonitoring() {
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    let tab = tabs[0];
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      files: ["content.js"]
-    }).then(() => {
-      console.log("Content script injected.");
+// Inject content script on installation
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.tabs.query({ url: "https://sellercentral.amazon.com/*" }, (tabs) => {
+    tabs.forEach(tab => {
       chrome.scripting.executeScript({
         target: { tabId: tab.id },
-        function: () => {
-          startAutomation();
-        }
-      });
-    }).catch(error => console.error("Error injecting content script:", error));
+        files: ["content.js"]
+      }).catch(err => console.error('Failed to inject content script', err));
+    });
   });
-}
+});
