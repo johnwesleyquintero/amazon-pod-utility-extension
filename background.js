@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 chrome.runtime.onInstalled.addListener(() => {
   chrome.tabs.query({ url: "https://sellercentral.amazon.com/*" }, (tabs) => {
     tabs.forEach(tab => {
-      chrome.scripting.executeScript({
+chrome.scripting.executeScript({
         target: { tabId: tab.id, allFrames: true },
         files: ["content.js"]
       }).catch(err => console.error('Failed to inject content script', err));
