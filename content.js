@@ -34,10 +34,41 @@ async function fetchData(url) {
 
     // Use more specific selectors to find warnings/errors
     let issueFound = "No Issues Detected";
-    const warningElements = tempDiv.querySelectorAll('.warning, .error, .alert'); // Example selectors
-    if (warningElements.length > 0) {
-      // Extract text from warning elements
-      issueFound = Array.from(warningElements).map(el => el.innerText).join('; ');
+
+    if (url.includes('/performance/dashboard')) {
+      const dashboardContent = tempDiv.querySelector('#dashboard-content');
+      if (dashboardContent) {
+        const warningElements = dashboardContent.querySelectorAll('.a-alert-content');
+        if (warningElements.length > 0) {
+          issueFound = Array.from(warningElements).map(el => el.innerText).join('; ');
+        }
+      }
+    } else if (url.includes('/fixyourproducts')) {
+      const pageContent = tempDiv.querySelector('#a-page');
+      if (pageContent) {
+        const issueCards = pageContent.querySelectorAll('.issue-card');
+        if (issueCards.length > 0) {
+          issueFound = Array.from(issueCards).map(card => {
+            const title = card.querySelector('h4.issue-title')?.innerText || '';
+            const description = card.querySelector('p.issue-description')?.innerText || '';
+            return `${title}: ${description}`;
+          }).join('; ');
+        }
+      }
+    } else if (url.includes('/inventoryplanning/stranded-inventory')) {
+      const pageContent = tempDiv.querySelector('#ihp-body-center');
+      if (pageContent) {
+        const tableContainer = pageContent.querySelector('.mt-table-container');
+        if (tableContainer) {
+          const issueElements = tableContainer.querySelectorAll('.mt-table tr');
+          if (issueElements.length > 0) {
+            issueFound = Array.from(issueElements).map(el => {
+              const reason = el.querySelector('.mt-header-count')?.innerText || '';
+              return `Stranded Reason: ${reason}`;
+            }).join('; ');
+          }
+        }
+      }
     }
 
     return {
