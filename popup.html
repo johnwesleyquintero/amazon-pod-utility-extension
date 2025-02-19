@@ -1,12 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <title>Amazon POD Utility</title>
-  <script src="popup.js" defer></script>
+  <title>Amazon Pod Utility</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #cccccc;
+    }
+    #status {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
-  <h3>Amazon POD Utility</h3>
-  <button id="startAutomation">Start Auto-Fetch</button>
-  <p id="status"></p>
+  <div class="container">
+    <h2>Amazon Pod Utility</h2>
+    <button id="startButton">Start Monitoring</button>
+    <button id="stopButton">Stop Monitoring</button>
+    <div id="status"></div>
+  </div>
+  <script src="popup.js"></script>
 </body>
 </html>
