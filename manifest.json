@@ -7,8 +7,8 @@
   "icons": {
     "16": "assets/icon16.png",
     "32": "assets/icon32.png",
-    "128": "assets/icon128.png",
-    "256": "assets/icon256.png",
+    "180": "assets/icon180.png",
+    "192": "assets/icon192.png",
     "512": "assets/icon512.png"
   },
   "permissions": [
@@ -17,10 +17,9 @@
     "scripting",
     "storage"
   ],
- "optional_host_permissions": [
-    "https://sellercentral.amazon.com/*"
-  ],
+ "optional_host_permissions": [],
   "host_permissions": [
+    "https://sellercentral.amazon.com/*",
     "https://script.google.com/macros/s/AKfycbxeo81Gxh-dhsM1k_dcGQ1wcnJIrMNotRFZwZl4Sm4fp_75HCSxCGrI8k3qNPfEbVC10A/exec"
   ],
   "background": {
@@ -28,7 +27,6 @@
     "type": "module"
   },
   "action": {
-    "default_popup": "popup.html",
-    "default_icon": "assets/icon128.png"
+    "default_popup": "popup.html"
   }
 }
