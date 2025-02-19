@@ -1,10 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "Amazon Nebula Utility",
-  "version": "1.0",
+  "name": "Amazon POD Utility",
+  "short_name": "POD Utility",
+  "version": "1.0.0",
   "description": "Automates Amazon Seller Central page monitoring",
   "icons": {
-    "128": "assets/android-chrome-512x512.png"
+    "16": "assets/icon16.png",
+    "32": "assets/icon32.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png",
+    "256": "assets/icon256.png",
+    "512": "assets/icon512.png"
   },
   "permissions": [
     "tabs",
@@ -13,8 +19,8 @@
     "storage"
   ],
   "host_permissions": [
-    "https://sellercentral.amazon.com/*",
-    "https://script.google.com/*"
+    "https://sellercentral.amazon.com/inventory/*", // More specific example
+    "https://script.google.com/macros/s/AKfycbxeo81Gxh-dhsM1k_dcGQ1wcnJIrMNotRFZwZl4Sm4fp_75HCSxCGrI8k3qNPfEbVC10A/exec" // More specific example
   ],
   "background": {
     "service_worker": "background.js",
@@ -22,6 +28,6 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "assets/android-chrome-512x512.png"
+    "default_icon": "assets/icon128.png" // Match one of the defined icon sizes
   }
 }

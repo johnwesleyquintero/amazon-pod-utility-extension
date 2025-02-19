@@ -73,8 +73,6 @@ function sendToGoogleSheets(data) {
   .then(result => console.log("Data sent:", result))
   .catch(error => console.error("Error:", error));
 }
-}
-
 // Start automation function that will visit Amazon pages
 function startAutomation() {
   console.log("Automation started...");
