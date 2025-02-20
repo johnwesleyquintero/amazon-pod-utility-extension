@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Amazon Nebula Utility</title>
+  <title>Nebula Suite (Chrome Extension)</title>
   <style>
     body {
       width: 300px;
@@ -32,11 +32,45 @@
       padding: 10px;
       border-radius: 4px;
     }
+    /* Sidebar styles */
+    .sidebar {
+      width: 250px;
+      background-color: #f0f2f5;
+      padding: 15px;
+    }
+    .sidebar h2 {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar li {
+      margin-bottom: 5px;
+    }
+    .sidebar a {
+      display: block;
+      padding: 8px 12px;
+      background-color: #fff;
+      color: #000;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .sidebar a:hover {
+      background-color: #e2e6ea;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Amazon Pod Utility</h2>
+  <div class="sidebar">
+    <h2>Nebula Suite</h2>
+    <ul>
+      <li><a href="#">Dashboard</a></li>
+      <li><a href="#">Reports</a></li>
+      <li><a href="#">Inventory</a></li>
+      <li><a href="#">Settings</a></li>
+    </ul>
     <button id="startButton">Start Monitoring</button>
     <button id="stopButton">Stop Monitoring</button>
     <div id="status"></div>

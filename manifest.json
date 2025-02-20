@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Amazon POD Utility",
+  "name": "Nebula Suite (Chrome Extension)",
   "short_name": "POD Utility",
   "version": "1.0.0",
   "description": "Automates Amazon Seller Central page monitoring",

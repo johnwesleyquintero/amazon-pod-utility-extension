@@ -13,7 +13,8 @@ const pages = [
   { name: "Performance Notifications", url: "/performance/notifications" },
   { name: "Feedback Manager", url: "/feedback-manager/index.html" },
   { name: "Customer Engagement", url: "/customer-engagement/campaigns" },
-  { name: "Unfulfillable Inventory", url: "/myinventory/unfulfillable/index.html" }
+  { name: "Unfulfillable Inventory", url: "/myinventory/unfulfillable/index.html" },
+  { name: "Business Reports", url: "/business/reports" } // Placeholder URL
 ];
 
 let currentIndex = 0;
@@ -69,6 +70,23 @@ async function fetchData(url) {
           }
         }
       }
+    } else if (url.includes('/business/reports')) {
+      // Extract data from the Business Reports page
+      const table = tempDiv.querySelector('#report-table'); // Placeholder selector
+      if (table) {
+        const rows = table.querySelectorAll('tbody tr'); // Placeholder selector
+        const reportData = [];
+        rows.forEach(row => {
+          const asin = row.querySelector('.asin-column')?.innerText || ''; // Placeholder selector
+          const title = row.querySelector('.title-column')?.innerText || ''; // Placeholder selector
+          const sku = row.querySelector('.sku-column')?.innerText || ''; // Placeholder selector
+          const sessions = row.querySelector('.sessions-column')?.innerText || ''; // Placeholder selector
+          reportData.push({ asin, title, sku, sessions });
+        });
+        issueFound = JSON.stringify(reportData);
+      } else {
+        issueFound = "No report table found";
+      }
     }
 
     return {
@@ -96,11 +114,31 @@ async function processNextPage() {
 
         // Store data in localStorage *only if* an issue is detected
         if (data.status !== "No Issues Detected") {
-            chrome.storage.local.get({ issues: [] }, function(result) {
-                const issues = result.issues;
-                issues.push({date: new Date().toISOString().split("T")[0], ...data});
-                chrome.storage.local.set({ issues: issues });
-            });
+          // Send data to Google Apps Script
+          fetch("https://script.google.com/macros/s/AKfycbxeo81Gxh-dhsM1k_dcGQ1wcnJIrMNotRFZwZl4Sm4fp_75HCSxCGrI8k3qNPfEbVC10A/exec", {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ postData: { contents: JSON.stringify(data) } })
+          })
+          .then(response => {
+            console.log("Data sent to Google Apps Script:", response);
+            return response.text();
+          })
+          .then(result => {
+            console.log("Google Apps Script response:", result);
+          })
+          .catch(error => {
+            console.error("Error sending data to Google Apps Script:", error);
+          });
+
+          chrome.storage.local.get({ issues: [] }, function(result) {
+            const issues = result.issues;
+            issues.push({date: new Date().toISOString().split("T")[0], ...data});
+            chrome.storage.local.set({ issues: issues });
+          });
         }
 
         processNextPage(); // Process next page immediately (no setTimeout)

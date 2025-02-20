@@ -1,4 +1,4 @@
-# Amazon POD Utility Chrome Extension
+# Nebula Suite Chrome Extension
 
 Amazon POD Utility is a powerful Chrome Extension designed to automate monitoring and reporting for Amazon Seller Central accounts. Whether you’re an Amazon seller or managing multiple accounts, this tool will help you track key metrics like Buy Box percentage, late shipments, account health, and more—directly from your browser.
 
